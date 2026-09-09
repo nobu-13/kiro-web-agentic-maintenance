@@ -1,0 +1,10 @@
+-r requirements.txt
+
+# Testing
+pytest==8.4.2
+moto[dynamodb]==5.1.22
+
+# Validation gates
+cfn-lint==1.56.1
+pip-audit==2.10.1
+bandit==1.9.4

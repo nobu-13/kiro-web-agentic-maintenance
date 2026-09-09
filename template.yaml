@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Minimal ticket management API baseline.
+  API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB.
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 128
+
+Resources:
+  TicketsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+
+  TicketsApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      EndpointConfiguration:
+        Type: REGIONAL
+
+  TicketsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: app.handler
+      Runtime: python3.12
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TicketsTable
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+                - dynamodb:GetItem
+              Resource: !GetAtt TicketsTable.Arn
+      Events:
+        CreateTicket:
+          Type: Api
+          Properties:
+            RestApiId: !Ref TicketsApi
+            Path: /tickets
+            Method: post
+        GetTicket:
+          Type: Api
+          Properties:
+            RestApiId: !Ref TicketsApi
+            Path: /tickets/{id}
+            Method: get
+
+Outputs:
+  ApiBaseUrl:
+    Description: Base URL for the tickets API.
+    Value: !Sub https://${TicketsApi}.execute-api.${AWS::Region}.amazonaws.com/prod
+  TicketsFunctionArn:
+    Description: ARN of the tickets Lambda function.
+    Value: !GetAtt TicketsFunction.Arn
+  TicketsTableName:
+    Description: Name of the DynamoDB tickets table.
+    Value: !Ref TicketsTable

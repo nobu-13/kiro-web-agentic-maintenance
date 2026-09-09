@@ -1,0 +1,4 @@
+# Runtime dependencies only.
+# boto3 is provided by the AWS Lambda python3.12 runtime; it is pinned here
+# for reproducible local testing and validation.
+boto3==1.40.76

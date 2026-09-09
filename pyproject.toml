@@ -1,0 +1,8 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.bandit]
+# Scan the application source. No skips or excludes are configured so that
+# all findings surface; this baseline must pass bandit without suppression.
+targets = ["src"]
