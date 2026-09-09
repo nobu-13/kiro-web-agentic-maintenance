@@ -22,7 +22,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(os.environ.get("LOG_LEVEL", "INFO"))
 
 # Maximum accepted lengths for user-supplied fields (basic input validation).
 MAX_SUBJECT_LENGTH = 200

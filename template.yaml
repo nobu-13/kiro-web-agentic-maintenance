@@ -32,6 +32,7 @@ Resources:
 
   TicketsFunction:
     Type: AWS::Serverless::Function
+    DependsOn: TicketsTable
     Properties:
       CodeUri: src/
       Handler: app.handler
@@ -41,6 +42,7 @@ Resources:
       Environment:
         Variables:
           TABLE_NAME: !Ref TicketsTable
+          LOG_LEVEL: INFO
       Policies:
         - Version: '2012-10-17'
           Statement:
