@@ -32,7 +32,6 @@ Resources:
 
   TicketsFunction:
     Type: AWS::Serverless::Function
-    DependsOn: TicketsTable
     Properties:
       CodeUri: src/
       Handler: app.handler
