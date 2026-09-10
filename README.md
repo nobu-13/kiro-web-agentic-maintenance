@@ -83,6 +83,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 | Name         | 用途                                                                     |
 | ------------ | ------------------------------------------------------------------------ |
 | `TABLE_NAME` | Ticket を格納する Amazon DynamoDB Table の名前。`src/app.py` の `get_table()` が参照します。 |
+| `LOG_LEVEL`  | Lambda の log level。`src/app.py` が `logger.setLevel()` で参照し、未設定時の default は `INFO` です。`template.yaml` では `INFO` を渡しています。 |
 
 `template.yaml` では `TABLE_NAME` に `TicketsTable` の参照 (`!Ref TicketsTable`) を渡しています。ソースコードや設定に credential や secret を埋め込んでいません。
 
