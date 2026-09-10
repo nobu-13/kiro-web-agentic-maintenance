@@ -147,4 +147,4 @@ bandit -r src/
 - API に Authentication / Authorization は実装していません (Baseline のスコープ外)。
 - 提供する機能は Ticket の作成 (`POST /tickets`) と取得 (`GET /tickets/{id}`) のみです。一覧取得・更新・削除は実装していません。
 - `SAM CLI` を用いた `sam build` / `sam deploy` は前提としていません。Local では pip で導入した tooling による Test / Validation のみを行います。
-- 意図的な脆弱性や不具合は投入していません (Baseline 構築のみ)。
+- baseline-v1タグ時点では、意図的な脆弱性や不具合は投入していません。 (Baseline 構築のみ)。
