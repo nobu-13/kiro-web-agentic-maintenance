@@ -94,7 +94,7 @@ Python 3.12 を使用します。仮想環境の作成を推奨します。
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements-test.txt
+pip install -r requirements-dev.txt
 ```
 
 `requirements-dev.txt` は先頭で `-r requirements.txt` を読み込むため、Runtime 依存関係と Dev / Test / Validation 依存関係の両方がインストールされます。
