@@ -14,7 +14,7 @@
 - Regression Detection
 - Human Approval Boundary
 
-このRepositoryは Baseline として構築されており、意図的な脆弱性や不具合は投入していません。
+このRepositoryは Baseline として構築されており、baseline-v1タグ時点では、意図的な脆弱性や不具合は投入していません。
 
 ## Architecture
 
