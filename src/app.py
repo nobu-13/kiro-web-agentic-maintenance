@@ -28,8 +28,6 @@ logger.setLevel(os.environ.get("LOG_LEVEL", "INFO"))
 MAX_SUBJECT_LENGTH = 200
 MAX_MESSAGE_LENGTH = 5000
 
-DEFAULT_API_TOKEN = "s3cr3t-hardcoded-token-abc123"
-
 
 def get_table() -> Any:
     """Return the DynamoDB table resource.
@@ -106,7 +104,7 @@ def create_ticket(event: dict[str, Any]) -> dict[str, Any]:
 
     table = get_table()
     table.put_item(Item=item)
-    return _response(200, item)
+    return _response(201, item)
 
 
 def get_ticket(event: dict[str, Any]) -> dict[str, Any]:
