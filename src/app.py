@@ -64,9 +64,6 @@ def _validate_create_payload(payload: Any) -> tuple[str, str] | None:
     if not isinstance(subject, str) or not isinstance(message, str):
         return None
 
-    subject = subject.strip()
-    message = message.strip()
-
     if not subject or not message:
         return None
 
