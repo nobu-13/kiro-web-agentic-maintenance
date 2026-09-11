@@ -4,11 +4,6 @@ Description: >
   Minimal ticket management API baseline.
   API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB.
 
-Mappings:
-  LogConfig:
-    prod:
-      Level: INFO
-
 Globals:
   Function:
     Timeout: 10
