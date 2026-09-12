@@ -11,6 +11,7 @@ variable; no credentials or secrets are embedded in this module.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import os
@@ -39,6 +40,12 @@ def get_table() -> Any:
     table_name = os.environ["TABLE_NAME"]
     resource = boto3.resource("dynamodb")
     return resource.Table(table_name)
+
+
+def _content_fingerprint(subject: str, message: str) -> str:
+    """Return a fingerprint of the ticket content used to detect duplicates."""
+    digest = hashlib.md5(f"{subject}\n{message}".encode("utf-8"))
+    return digest.hexdigest()
 
 
 def _response(status_code: int, body: dict[str, Any]) -> dict[str, Any]:
@@ -96,6 +103,7 @@ def create_ticket(event: dict[str, Any]) -> dict[str, Any]:
         "id": str(uuid.uuid4()),
         "subject": subject,
         "message": message,
+        "dedup_key": _content_fingerprint(subject, message),
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
 
