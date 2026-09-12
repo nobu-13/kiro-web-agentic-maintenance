@@ -35,7 +35,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 | POST   | `/tickets`       | Ticket を 1 件作成する    |
 | GET    | `/tickets/{id}`  | Ticket を 1 件取得する    |
 
-`POST /tickets` は JSON body の `subject` と `message` を受け取ります。両者は非空の文字列であることが必須で、`subject` は最大 200 文字、`message` は最大 5000 文字です。作成時に `uuid4` による `id` と UTC の `created_at` を採番します。`201` のレスポンス body は、格納した Ticket 全体 (`id`, `subject`, `message`, `created_at`) をそのまま JSON で返します。
+`POST /tickets` は JSON body の `subject` と `message` を受け取ります。両者は非空の文字列であることが必須で、`subject` は最大 256 文字、`message` は最大 5000 文字です。作成時に `uuid4` による `id` と UTC の `created_at` を採番します。`201` のレスポンス body は、格納した Ticket 全体 (`id`, `subject`, `message`, `created_at`) をそのまま JSON で返します。
 
 レスポンスの status code は以下のとおりです。
 

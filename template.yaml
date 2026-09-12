@@ -9,6 +9,9 @@ Globals:
     Timeout: 10
     MemorySize: 128
 
+Conditions:
+  IsProd: !Equals [!Ref "AWS::Region", "us-east-1"]
+
 Resources:
   TicketsTable:
     Type: AWS::DynamoDB::Table
