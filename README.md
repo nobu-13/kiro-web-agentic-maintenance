@@ -25,7 +25,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 ```
 
 - **API Gateway** (`AWS::Serverless::Api`): REST API を公開します。Stage 名は `prod`、Endpoint Configuration は `REGIONAL` です。
-- **AWS Lambda** (`AWS::Serverless::Function`): Runtime は `python3.12`、Handler は `app.handler`、CodeUri は `src/` です。リクエストを HTTP method と resource でルーティングします。
+- **AWS Lambda** (`AWS::Serverless::Function`): Runtime は `python3.11`、Handler は `app.handler`、CodeUri は `src/` です。リクエストを HTTP method と resource でルーティングします。
 - **Amazon DynamoDB** (`AWS::DynamoDB::Table`): Ticket を格納します。Partition key は `id` (String, HASH)、Billing mode は `PAY_PER_REQUEST`、Server-Side Encryption (`SSEEnabled: true`) が有効です。
 
 提供する API は以下の 2 つです。
