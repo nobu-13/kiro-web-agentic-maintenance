@@ -125,7 +125,7 @@ def get_ticket(event: dict[str, Any]) -> dict[str, Any]:
     item = result.get("Item")
 
     if item is None:
-        return _response(404, {"error": "Ticket not found"})
+        return _response(404, {"error": "Not found"})
 
     return _response(200, item)
 
