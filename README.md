@@ -148,3 +148,8 @@ bandit -r src/
 - 提供する機能は Ticket の作成 (`POST /tickets`) と取得 (`GET /tickets/{id}`) のみです。一覧取得・更新・削除は実装していません。
 - `SAM CLI` を用いた `sam build` / `sam deploy` は前提としていません。Local では pip で導入した tooling による Test / Validation のみを行います。
 - baseline-v1タグ時点では、意図的な脆弱性や不具合は投入していません。 (Baseline 構築のみ)。
+
+- Human correction
+Human reviewで、dedup_key 自体を削除する修正は過剰修正と判断した。
+Human interventionによりdedup機能を維持し、hashlib.md5 を hashlib.sha256 へ置き換えた。
+Kiro autonomous fix: 2/3 correct。D5-02のみHuman correctionを実施。
