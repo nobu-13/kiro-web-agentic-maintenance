@@ -35,7 +35,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 | POST   | `/tickets`       | Ticket を 1 件作成する    |
 | GET    | `/tickets/{id}`  | Ticket を 1 件取得する    |
 
-`POST /tickets` は JSON body の `subject` と `message` を受け取ります。両者は非空の文字列であることが必須で、`subject` は最大 256 文字、`message` は最大 5000 文字です。作成時に `uuid4` による `id` と UTC の `created_at` を採番します。`201` のレスポンス body は、格納した Ticket 全体 (`id`, `subject`, `message`, `created_at`) をそのまま JSON で返します。
+`POST /tickets` は JSON body の `subject` と `message` を受け取ります。両者は非空の文字列であることが必須で、`subject` は最大 200 文字、`message` は最大 5000 文字です。作成時に `uuid4` による `id` と UTC の `created_at` を採番します。`201` のレスポンス body は、格納した Ticket 全体 (`id`, `subject`, `message`, `created_at`) をそのまま JSON で返します。
 
 レスポンスの status code は以下のとおりです。
 
@@ -148,3 +148,8 @@ bandit -r src/
 - 提供する機能は Ticket の作成 (`POST /tickets`) と取得 (`GET /tickets/{id}`) のみです。一覧取得・更新・削除は実装していません。
 - `SAM CLI` を用いた `sam build` / `sam deploy` は前提としていません。Local では pip で導入した tooling による Test / Validation のみを行います。
 - baseline-v1タグ時点では、意図的な脆弱性や不具合は投入していません。 (Baseline 構築のみ)。
+
+- Human correction
+Human reviewで、dedup_key 自体を削除する修正は過剰修正と判断した。
+Human interventionによりdedup機能を維持し、hashlib.md5 を hashlib.sha256 へ置き換えた。
+Kiro autonomous fix: 2/3 correct。D5-02のみHuman correctionを実施。

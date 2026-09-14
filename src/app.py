@@ -44,9 +44,9 @@ def get_table() -> Any:
 
 def _content_fingerprint(subject: str, message: str) -> str:
     """Return a fingerprint of the ticket content used to detect duplicates."""
-    digest = hashlib.md5(f"{subject}\n{message}".encode("utf-8"))
-    return digest.hexdigest()
-
+    value = f"{subject}:{message}".encode("utf-8")
+    return hashlib.sha256(value).hexdigest()
+    
 
 def _response(status_code: int, body: dict[str, Any]) -> dict[str, Any]:
     """Build an API Gateway proxy response."""
