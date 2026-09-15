@@ -29,6 +29,13 @@ Resources:
       StageName: prod
       EndpointConfiguration:
         Type: REGIONAL
+      Auth:
+        ResourcePolicy:
+          CustomStatements:
+            - Effect: Allow
+              Principal: '*'
+              Action: execute-api:Invoke
+              Resource: execute-api:/*
 
   TicketsFunction:
     Type: AWS::Serverless::Function
@@ -46,9 +53,7 @@ Resources:
         - Version: '2012-10-17'
           Statement:
             - Effect: Allow
-              Action:
-                - dynamodb:PutItem
-                - dynamodb:GetItem
+              Action: '*'
               Resource: !GetAtt TicketsTable.Arn
       Events:
         CreateTicket:
