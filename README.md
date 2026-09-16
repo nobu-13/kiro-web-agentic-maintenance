@@ -35,7 +35,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 | POST   | `/tickets`       | Ticket を 1 件作成する    |
 | GET    | `/tickets/{id}`  | Ticket を 1 件取得する    |
 
-`POST /tickets` は JSON body の `subject` と `message` を受け取ります。両者は非空の文字列であることが必須で、`subject` は最大 200 文字、`message` は最大 5000 文字です。作成時に `uuid4` による `id` と UTC の `created_at` を採番します。`201` のレスポンス body は、格納した Ticket 全体 (`id`, `subject`, `message`, `created_at`) をそのまま JSON で返します。
+`POST /tickets` は JSON body の `subject` と `message` を受け取ります。両者は非空の文字列であることが必須で、`subject` は最大 200 文字、`message` は最大 5000 文字です。作成時に `uuid4` による `id` と UTC の `created_at` を採番します。`201` のレスポンス body は、格納した Ticket 全体 (`id`, `subject`, `message`, `dedup_key`, `created_at`) をそのまま JSON で返します。`dedup_key` は `subject` と `message` から算出する content fingerprint で、重複検出 (duplicate detection) に用います。
 
 レスポンスの status code は以下のとおりです。
 
@@ -52,7 +52,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 ├── README.md              # このファイル (日本語ドキュメント)
 ├── template.yaml          # AWS SAM / CloudFormation テンプレート
 ├── pyproject.toml         # pytest / bandit などの tooling 設定
-├── requirements.txt       # Runtime 依存関係のみ (boto3)
+├── requirements.txt       # Runtime 依存関係のみ (boto3, urllib3)
 ├── requirements-dev.txt   # Dev / Test / Validation 依存関係
 ├── src/                   # Lambda ソースコード
 │   ├── __init__.py
@@ -68,7 +68,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 
 - **Python 3.12** (Lambda Runtime `python3.12` に一致させる)
 - **pip** (依存関係のインストール用)
-- Runtime 依存関係: `boto3==1.40.76`
+- Runtime 依存関係: `boto3==1.40.76`, `urllib3==2.7.0` (`urllib3` は `boto3` の transitive dependency で、再現性のある Validation のために pin しています)
 - Dev / Test / Validation 依存関係 (`requirements-dev.txt`):
   - `pytest==8.4.2`
   - `moto[dynamodb]==5.1.22`
