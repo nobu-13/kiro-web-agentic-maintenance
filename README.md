@@ -56,7 +56,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 ├── requirements-dev.txt   # Dev / Test / Validation 依存関係
 ├── src/                   # Lambda ソースコード
 │   ├── __init__.py
-│   └── handler.py         # Lambda handler (app.handler)
+│   └── app.py             # Lambda handler (app.handler)
 ├── tests/                 # 単体テスト
 │   └── test_app.py
 └── .kiro/
