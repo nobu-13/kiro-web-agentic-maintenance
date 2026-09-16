@@ -30,7 +30,6 @@ Resources:
       EndpointConfiguration:
         Type: REGIONAL
 
-
   TicketsFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -43,14 +42,14 @@ Resources:
         Variables:
           TABLE_NAME: !Ref TicketsTable
           LOG_LEVEL: INFO
-　　　Policies:
-　　　  - Version: '2012-10-17'
-　　 　   Statement:
-　　  　    - Effect: Allow
-　　   　     Action:
-　 　   　      - dynamodb:PutItem
-　  　   　     - dynamodb:GetItem
-　   　   　  Resource: !GetAtt TicketsTable.Arn
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+                - dynamodb:GetItem
+              Resource: !GetAtt TicketsTable.Arn
       Events:
         CreateTicket:
           Type: Api
