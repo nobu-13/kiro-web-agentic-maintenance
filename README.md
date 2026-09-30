@@ -68,7 +68,7 @@ API Gateway -> AWS Lambda (Python) -> Amazon DynamoDB
 
 - **Python 3.12** (Lambda Runtime `python3.12` に一致させる)
 - **pip** (依存関係のインストール用)
-- Runtime 依存関係: `boto3==1.40.76`, `urllib3==2.7.0` (`urllib3` は `boto3` の transitive dependency で、再現性のある Validation のために pin しています)
+- Runtime 依存関係: `boto3==1.40.76`, `urllib3==2.8.0` (`urllib3` は `boto3` の transitive dependency で、再現性のある Validation のために pin しています)
 - Dev / Test / Validation 依存関係 (`requirements-dev.txt`):
   - `pytest==8.4.2`
   - `moto[dynamodb]==5.1.22`
